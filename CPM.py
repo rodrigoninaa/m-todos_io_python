@@ -3,22 +3,22 @@ import matplotlib.pyplot as plt
 
 def cpm(graph):
     # Calcula las fechas tempranas
-    early_dates = {node: 0 for node in graph.nodes()}
-    for node in nx.topological_sort(graph):
-        for successor in graph.successors(node):
-            early_dates[successor] = max(early_dates[successor], early_dates[node] + graph[node][successor]['weight'])
+    fechas_tempranas = {nodo: 0 for nodo in graph.nodes()}
+    for nodo in nx.topological_sort(graph):
+        for sucesor in graph.successors(nodo):
+            fechas_tempranas[sucesor] = max(fechas_tempranas[sucesor], fechas_tempranas[nodo] + graph[nodo][sucesor]['weight'])
 
     # Calcula las fechas tardías
-    last_node = list(graph.nodes())[-1]
-    late_dates = {node: early_dates[last_node] for node in graph.nodes()}
-    for node in reversed(list(nx.topological_sort(graph))):
-        for predecessor in graph.predecessors(node):
-            late_dates[predecessor] = min(late_dates[predecessor], late_dates[node] - graph[predecessor][node]['weight'])
+    ultimo_nodo = list(graph.nodes())[-1]
+    fechas_tardias = {nodo: fechas_tempranas[ultimo_nodo] for nodo in graph.nodes()}
+    for nodo in reversed(list(nx.topological_sort(graph))):
+        for predecesor in graph.predecessors(nodo):
+            fechas_tardias[predecesor] = min(fechas_tardias[predecesor], fechas_tardias[nodo] - graph[predecesor][nodo]['weight'])
 
     # Calcula las holguras
-    slack = {node: late_dates[node] - early_dates[node] for node in graph.nodes()}
+    holguras = {nodo: fechas_tardias[nodo] - fechas_tempranas[nodo] for nodo in graph.nodes()}
 
-    return early_dates, late_dates, slack
+    return fechas_tempranas, fechas_tardias, holguras
 
 # Ejemplo de uso
 G = nx.DiGraph()
@@ -30,12 +30,12 @@ G.add_edge(2, 4, weight=3)
 G.add_edge(3, 5, weight=2)
 G.add_edge(4, 5, weight=2)
 
-early_dates, late_dates, slack = cpm(G)
+fechas_tempranas, fechas_tardias, holguras = cpm(G)
 
 # Imprime los resultados
-print("Fechas tempranas:", early_dates)
-print("Fechas tardías:", late_dates)
-print("Holguras:", slack)
+print("Fechas tempranas:", fechas_tempranas)
+print("Fechas tardías:", fechas_tardias)
+print("Holguras:", holguras)
 
 # Dibuja el gráfico
 pos = nx.spring_layout(G)
