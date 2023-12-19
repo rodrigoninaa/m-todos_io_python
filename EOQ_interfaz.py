@@ -1,11 +1,13 @@
 import tkinter as tkr
 import math
+from tkinter import messagebox
 
 # Creacion de la primera ventana
 ventana = tkr.Tk()
 ventana.geometry("350x200")
 ventana.resizable(width=False, height=False)
 ventana.title("Costes de investario EOQ")
+ventana.withdraw()
 
 # Creacion de la segunda ventana
 ventana_2 = tkr.Toplevel(ventana)
@@ -14,7 +16,21 @@ ventana_2.geometry("350x125")
 ventana_2.resizable(width=False, height=False)
 ventana_2.withdraw() # <-- para ocultar la ventana una vez inicializado el programa
 
+
+def mostrar_ventana():
+    ventana.deiconify()
+    ventana_2.withdraw()
+
+def Limpiar():
+    entrada_01.delete(0, "end")
+    entrada_02.delete(0, "end")
+    entrada_03.delete(0, "end")
+    entrada_04.delete(0, "end")
+    entrada_05.delete(0, "end")
+    entrada_06.delete(0, "end")
+
 def ventana_calculos():
+    ventana.withdraw()
     ventana_2.deiconify()
     # ******************************
     # *     Zona ce calculos...    *
@@ -58,6 +74,8 @@ def ventana_calculos():
 #**************************************************************************************************************
 
 # Creacion de los elemtos de la ventana_1 (ingraso de datos)
+    
+ventana.deiconify()
 
 etiqueta_01 = tkr.Label(ventana, text="Demanda anual (D) : ")
 etiqueta_02 = tkr.Label(ventana, text="Costo de mantenimiento (H) :")
@@ -74,6 +92,7 @@ entrada_05 = tkr.Entry(ventana)
 entrada_06 = tkr.Entry(ventana)
 
 boton_01 = tkr.Button(ventana, text="Calcular", command=ventana_calculos )
+boton_02 = tkr.Button(ventana, text="Limpiar", command= Limpiar)
 
 # Creacion de los elemtos de la ventana_2 (resultados)
 
@@ -108,7 +127,8 @@ entrada_04.grid(row=3, column=2)
 entrada_05.grid(row=4, column=2)
 entrada_06.grid(row=5, column=2)
 
-boton_01.place(x=150,y=150)
+boton_01.place(x=120,y=150)
+boton_02.place(x=180, y= 150)
 
 # Pocicionamiento de los elementos en la tabla Ventana_2 (resultados)
 
@@ -126,6 +146,8 @@ entrada_04_2.grid(row=3, column=2, sticky="w")
 entrada_05_2.grid(row=4, column=2, sticky="w")
 entrada_06_2.grid(row=5, column=2, sticky="w")
 
+
+ventana_2.protocol("WM_DELETE_WINDOW", mostrar_ventana)
 
 
 ventana.mainloop()
