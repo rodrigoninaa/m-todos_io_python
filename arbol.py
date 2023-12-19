@@ -49,12 +49,12 @@ elif(opcion == 2):
     for i in range(num_suceso):
         fila_utilidades = []  # Inicializar una fila para cada decisión
 
-    for j in range(num_alternativas):
-        # Solicitar al usuario la utilidad para cada combinación de decisión y evento
-        utilidad = float(input(f"Ingrese la utilidad para la alternativa {i + 1} en el suceso {j + 1}: "))
-        fila_utilidades.append(utilidad)
+        for j in range(num_alternativas):
+            # Solicitar al usuario la utilidad para cada combinación de decisión y evento
+            utilidad = float(input(f"Ingrese la utilidad para la alternativa {i + 1} en el suceso {j + 1}: "))
+            fila_utilidades.append(utilidad)
 
-    matriz_utilidades.append(fila_utilidades)
+        matriz_utilidades.append(fila_utilidades)
 
     # Mostrar la matriz resultante
     print("\nMatriz de Utilidades:")
