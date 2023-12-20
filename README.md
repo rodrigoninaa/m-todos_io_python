@@ -8,7 +8,14 @@ Integrantes
 - Rodrigo Nina Quispe
 
 Lenguaje: Python
-Librerias utilizadas
+
+/Librerias utilizadas/
 - random
 - sympy
+- customTkinter
+- Tkinter
+- math
+- networkx
+- matplotlib
+- numpy
   
