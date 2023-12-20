@@ -1,5 +1,6 @@
 import customtkinter
 from PIL import Image, ImageTk
+import subprocess
 
 customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
 customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
@@ -71,37 +72,76 @@ imagen_tk = ImageTk.PhotoImage(imagen1)
 lb_ahp = customtkinter.CTkLabel(app, image=imagen_tk,text="")
 lb_ahp.place(x=490,y=210)
 
-#arbol 
+#arbol grafico
 arbol = customtkinter.CTkFrame(master=app, width=400, height=110)
 arbol.place(x=450,y=350)
-imagen = Image.open("images\decisiones.jpg")
+imagen = Image.open("images\Arbol_grafico.jpg")
 tamano = (400,100)
 imagen1 = imagen.resize(tamano)
 imagen_tk = ImageTk.PhotoImage(imagen1)
 lb_arbol = customtkinter.CTkLabel(app, image=imagen_tk,text="")
 lb_arbol.place(x=490,y=350)
 
-#incertidumbre
-incertidumbre = customtkinter.CTkFrame(master=app, width=400, height=110)
-incertidumbre.place(x=450,y=490)
-imagen = Image.open("images\decisiones.jpg")
+#arbol decisiones
+decisiones = customtkinter.CTkFrame(master=app, width=400, height=110)
+decisiones.place(x=450,y=490)
+imagen = Image.open("images\Arbol_decisiones.jpg")
 tamano = (400,100)
 imagen1 = imagen.resize(tamano)
 imagen_tk = ImageTk.PhotoImage(imagen1)
-lb_incertidumbre = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_incertidumbre.place(x=490,y=510)
+lb_decisiones = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_decisiones.place(x=490,y=510)
+
+#arbol- bajo incertidumbre
+ahp = customtkinter.CTkFrame(master=app, width=400, height=110)
+ahp.place(x=870,y=210)
+imagen = Image.open("images\Bajo_incertidumbre.jpg")
+tamano = (400,100)
+imagen1 = imagen.resize(tamano)
+imagen_tk = ImageTk.PhotoImage(imagen1)
+lb_ahp = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_ahp.place(x=920,y=210)
+
+#montecarlo
+
+
+#funciones
+def funcion_cpm():
+    archivo = "CPM.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_pert():
+    archivo = "PERT.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_eoq():
+    archivo = "EOQ_interfaz.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_grafico_arbol():
+    archivo = "arbol_grafico.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_decisiones():
+    archivo = "arbol_decisiones.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_incertidumbre():
+    archivo = "incertidumbre.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
 
 #buttons
-btn_cpm = customtkinter.CTkButton(app, text="EJECUTAR")
+btn_cpm = customtkinter.CTkButton(app, text="EJECUTAR", command=funcion_cpm)
 btn_cpm.place(x=150,y=300)
-btn_pert = customtkinter.CTkButton(app, text="EJECUTAR")
+btn_pert = customtkinter.CTkButton(app, text="EJECUTAR", command=funcion_pert)
 btn_pert.place(x=150,y=450)
-btn_eoq = customtkinter.CTkButton(app, text="EJECUTAR")
+btn_eoq = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_eoq)
 btn_eoq.place(x=150,y=600)
 btn_ahp = customtkinter.CTkButton(app, text="EJECUTAR")
 btn_ahp.place(x=590,y=300)
-btn_arbol = customtkinter.CTkButton(app, text="EJECUTAR")
-btn_arbol.place(x=590,y=450)
-btn_incertidumbre = customtkinter.CTkButton(app, text="EJECUTAR")
-btn_incertidumbre.place(x=590,y=600)
+btn_arbol_grafico = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_grafico_arbol)
+btn_arbol_grafico.place(x=590,y=450)
+btn_decisiones = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_decisiones)
+btn_decisiones.place(x=590,y=600)
+btn_incertidumbre = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_incertidumbre)
+btn_incertidumbre.place(x=1020,y=300)
+
+
+#arbol
+
 app.mainloop()
