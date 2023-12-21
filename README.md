@@ -1,4 +1,5 @@
 *INVESTIGACIÓN OPERATIVA II*
+![menu](https://github.com/rodrigoninaa/m-todos_io_python/assets/110081529/09e26273-c407-4886-8d88-61b9eccbc65e)
 
 Integrantes
 - Cristian Arredondo Vargas
@@ -12,7 +13,7 @@ Lenguaje: Python
 /Librerias utilizadas/
 - random
 - sympy
-- customTkinter
+- customTkinter  
 - Tkinter
 - math
 - networkx
