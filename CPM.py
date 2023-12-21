@@ -18,10 +18,7 @@ def cpm(graph):
     # Calcula las holguras
     holguras = {nodo: fechas_tardias[nodo] - fechas_tempranas[nodo] for nodo in graph.nodes()}
 
-    # Identifica la ruta crítica
-    ruta_critica = [nodo for nodo in graph.nodes() if holguras[nodo] == 0]
-
-    return fechas_tempranas, fechas_tardias, holguras, ruta_critica
+    return fechas_tempranas, fechas_tardias, holguras
 
 # Ejemplo de uso
 G = nx.DiGraph()
@@ -33,17 +30,15 @@ G.add_edge(2, 4, weight=3)
 G.add_edge(3, 5, weight=2)
 G.add_edge(4, 5, weight=2)
 
-fechas_tempranas, fechas_tardias, holguras, ruta_critica = cpm(G)
+fechas_tempranas, fechas_tardias, holguras = cpm(G)
 
 # Imprime los resultados
 print("Fechas tempranas:", fechas_tempranas)
 print("Fechas tardías:", fechas_tardias)
 print("Holguras:", holguras)
-print("Ruta crítica:", ruta_critica)
 
-# Dibuja el gráfico con resaltado de ruta crítica
+# Dibuja el gráfico
 pos = nx.spring_layout(G)
 nx.draw_networkx(G, pos, with_labels=True, node_size=700, node_color="skyblue", font_size=8, font_color="black", font_weight="bold")
 nx.draw_networkx_edge_labels(G, pos, edge_labels=nx.get_edge_attributes(G, 'weight'))
-nx.draw_networkx_edges(G, pos, edgelist=[(ruta_critica[i], ruta_critica[i + 1]) for i in range(len(ruta_critica) - 1)], edge_color='red', width=2)
 plt.show()

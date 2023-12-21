@@ -103,7 +103,24 @@ lb_ahp = customtkinter.CTkLabel(app, image=imagen_tk,text="")
 lb_ahp.place(x=920,y=210)
 
 #montecarlo
+arbol = customtkinter.CTkFrame(master=app, width=400, height=110)
+arbol.place(x=870,y=350)
+imagen = Image.open("images\Montecarlo.jpg")
+tamano = (400,100)
+imagen1 = imagen.resize(tamano)
+imagen_tk = ImageTk.PhotoImage(imagen1)
+lb_arbol = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_arbol.place(x=920,y=350)
 
+#teoria de colas
+decisiones = customtkinter.CTkFrame(master=app, width=400, height=110)
+decisiones.place(x=870,y=490)
+imagen = Image.open("images\Colas.jpg")
+tamano = (400,100)
+imagen1 = imagen.resize(tamano)
+imagen_tk = ImageTk.PhotoImage(imagen1)
+lb_decisiones = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_decisiones.place(x=920,y=510)
 
 #funciones
 def funcion_cpm():
@@ -115,6 +132,9 @@ def funcion_pert():
 def funcion_eoq():
     archivo = "EOQ_interfaz.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
+def funcion_ahp():
+    archivo = "AHP.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
 def funcion_grafico_arbol():
     archivo = "arbol_grafico.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
@@ -124,7 +144,12 @@ def funcion_decisiones():
 def funcion_incertidumbre():
     archivo = "incertidumbre.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
-
+def funcion_montecarlo():
+    archivo = "montecarlo2.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_colas():
+    archivo = "teoriaColas.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
 #buttons
 btn_cpm = customtkinter.CTkButton(app, text="EJECUTAR", command=funcion_cpm)
 btn_cpm.place(x=150,y=300)
@@ -132,7 +157,7 @@ btn_pert = customtkinter.CTkButton(app, text="EJECUTAR", command=funcion_pert)
 btn_pert.place(x=150,y=450)
 btn_eoq = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_eoq)
 btn_eoq.place(x=150,y=600)
-btn_ahp = customtkinter.CTkButton(app, text="EJECUTAR")
+btn_ahp = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_ahp)
 btn_ahp.place(x=590,y=300)
 btn_arbol_grafico = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_grafico_arbol)
 btn_arbol_grafico.place(x=590,y=450)
@@ -140,8 +165,10 @@ btn_decisiones = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_de
 btn_decisiones.place(x=590,y=600)
 btn_incertidumbre = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_incertidumbre)
 btn_incertidumbre.place(x=1020,y=300)
+btn_montecarlo = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_montecarlo)
+btn_montecarlo.place(x=1020,y=450)
+btn_colas = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_colas)
+btn_colas.place(x=1020,y=600)
 
-
-#arbol
 
 app.mainloop()

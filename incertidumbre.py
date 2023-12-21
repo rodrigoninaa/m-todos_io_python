@@ -1,85 +1,77 @@
-# Solicitar al usuario el número de decisiones y eventos inciertos
-num_suceso = int(input("Ingrese el número de sucesos: "))
-num_alternativas = int(input("Ingrese el número de alternativa: "))
+import tkinter as tk
+from tkinter import simpledialog, messagebox
 
-# Inicializar una matriz para almacenar las utilidades de cada decisión y evento
-matriz_utilidades = []
+def obtener_utilidades():
+    num_suceso = simpledialog.askinteger("Input", "Ingrese el número de sucesos:")
+    num_alternativas = simpledialog.askinteger("Input", "Ingrese el número de alternativas:")
 
-# Construir la matriz con un bucle for
-for i in range(num_suceso):
-    fila_utilidades = []  # Inicializar una fila para cada decisión
+    matriz_utilidades = []
 
-    for j in range(num_alternativas):
-        # Solicitar al usuario la utilidad para cada combinación de decisión y evento
-        utilidad = float(input(f"Ingrese la utilidad para la alternativa {i + 1} en el suceso {j + 1}: "))
-        fila_utilidades.append(utilidad)
+    for i in range(num_suceso):
+        fila_utilidades = []
 
-    matriz_utilidades.append(fila_utilidades)
+        for j in range(num_alternativas):
+            utilidad = simpledialog.askfloat(f"Input", f"Ingrese la utilidad para la alternativa {i + 1} en el suceso {j + 1}:")
+            fila_utilidades.append(utilidad)
 
-# Mostrar la matriz resultante
-print("\nMatriz de Utilidades:")
-for fila in matriz_utilidades:
-    print(fila)
+        matriz_utilidades.append(fila_utilidades)
 
-# Aplicar el criterio de Wald
-maximos_minimos = [min(fila) for fila in matriz_utilidades]
-decision_optima_wald = maximos_minimos.index(max(maximos_minimos)) + 1
+    return matriz_utilidades, num_suceso, num_alternativas
 
-# Calcular la utilidad esperada en el peor escenario para cada decisión
-utilidades_peor_escenario = [maximos_minimos[i] for i in range(num_suceso)]
+def mostrar_matriz(matriz_utilidades):
+    messagebox.showinfo("Matriz de Utilidades", "\n".join(["\t".join(map(str, fila)) for fila in matriz_utilidades]))
 
-# Mostrar resultados
-print(f"\nCriterio de Wald:")
-print(f"Decision Óptima según Wald: alternativa {decision_optima_wald}")
-print(f"Utilidad Esperada en el Peor Escenario para cada Decisión: {utilidades_peor_escenario}")
+def criterio_wald(matriz_utilidades, num_suceso):
+    maximos_minimos = [min(fila) for fila in matriz_utilidades]
+    decision_optima_wald = maximos_minimos.index(max(maximos_minimos)) + 1
+    utilidades_peor_escenario = [maximos_minimos[i] for i in range(num_suceso)]
+    return decision_optima_wald, utilidades_peor_escenario
 
-# Aplicar el criterio optimista
-maximos_maximos = [max(fila) for fila in matriz_utilidades]
-decision_optima_optimista = maximos_maximos.index(max(maximos_maximos)) + 1
+def criterio_optimista(matriz_utilidades, num_suceso):
+    maximos_maximos = [max(fila) for fila in matriz_utilidades]
+    decision_optima_optimista = maximos_maximos.index(max(maximos_maximos)) + 1
+    utilidades_mejor_escenario = [maximos_maximos[i] for i in range(num_suceso)]
+    return decision_optima_optimista, utilidades_mejor_escenario
 
-# Calcular la utilidad esperada en el mejor escenario para cada decisión
-utilidades_mejor_escenario = [maximos_maximos[i] for i in range(num_suceso)]
+def criterio_laplace(matriz_utilidades, num_suceso, num_alternativas):
+    probabilidad_uniforme = 1 / num_alternativas
+    utilidades_promedio = [sum(fila) * probabilidad_uniforme for fila in matriz_utilidades]
+    decision_optima_laplace = utilidades_promedio.index(max(utilidades_promedio)) + 1
+    return decision_optima_laplace, utilidades_promedio
 
-# Mostrar resultados
-print(f"\nCriterio Optimista:")
-print(f"Decision Óptima según Optimista: alternativa {decision_optima_optimista}")
-print(f"Utilidad Esperada en el Mejor Escenario para cada Decisión: {utilidades_mejor_escenario}")
-
-# Aplicar el criterio de Laplace
-probabilidad_uniforme = 1 / num_alternativas
-utilidades_promedio = [sum(fila) * probabilidad_uniforme for fila in matriz_utilidades]
-decision_optima_laplace = utilidades_promedio.index(max(utilidades_promedio)) + 1
-
-# Mostrar resultados
-print(f"\nCriterio de Laplace:")
-print(f"Decision Óptima según Laplace: alternativa {decision_optima_laplace}")
-print(f"Utilidad Esperada Promedio para cada Decisión: {utilidades_promedio}")
-
-# Solicitar al usuario el valor de peso (alfa) para el criterio de Hurwicz
-alfa = float(input("Ingrese el valor de alfa para el criterio de Hurwicz (entre 0 y 1): "))
-
-# Validar que alfa esté en el rango correcto
-if 0 <= alfa <= 1:
-    # Aplicar el criterio de Hurwicz
+def criterio_hurwicz(matriz_utilidades, num_suceso, alfa):
     utilidades_hurwicz = [alfa * max(fila) + (1 - alfa) * min(fila) for fila in matriz_utilidades]
     decision_optima_hurwicz = utilidades_hurwicz.index(max(utilidades_hurwicz)) + 1
+    return decision_optima_hurwicz, utilidades_hurwicz
 
-    # Mostrar resultados
-    print(f"\nCriterio de Hurwicz:")
-    print(f"Decision Óptima según Hurwicz: alternativa {decision_optima_hurwicz}")
-    print(f"Utilidad Esperada para cada Decisión (alfa = {alfa}): {utilidades_hurwicz}")
-else:
-    print("Error: El valor de alfa debe estar entre 0 y 1.")
+def criterio_savage(matriz_utilidades, num_suceso):
+    maximos_lamentos = [max(fila) - min(fila) for fila in matriz_utilidades]
+    decision_optima_savage = maximos_lamentos.index(min(maximos_lamentos)) + 1
+    return decision_optima_savage, maximos_lamentos
 
-# Calcular el máximo lamento para cada decisión
-maximos_lamentos = [max(fila) - min(fila) for fila in matriz_utilidades]
+def main():
+    matriz_utilidades, num_suceso, num_alternativas = obtener_utilidades()
 
-# Encontrar la decisión que minimiza el máximo lamento
-decision_optima_savage = maximos_lamentos.index(min(maximos_lamentos)) + 1
+    mostrar_matriz(matriz_utilidades)
 
-# Mostrar resultados
-print(f"\nCriterio de Savage:")
-print(f"Decision Óptima según Savage: alternativa {decision_optima_savage}")
-print(f"Lamento Máximo para cada Decisión: {maximos_lamentos}")
+    decision_wald, utilidades_wald = criterio_wald(matriz_utilidades, num_suceso)
+    messagebox.showinfo("Criterio de Wald", f"Decision Pesimista según Wald: alternativa {decision_wald}\nUtilidad Esperada en el Peor Escenario para cada Decisión: {utilidades_wald}")
 
+    decision_optimista, utilidades_optimista = criterio_optimista(matriz_utilidades, num_suceso)
+    messagebox.showinfo("Criterio Optimista", f"Decision Óptima : alternativa {decision_optimista}\nUtilidad Esperada en el Mejor Escenario para cada Decisión: {utilidades_optimista}")
 
+    decision_laplace, utilidades_laplace = criterio_laplace(matriz_utilidades, num_suceso, num_alternativas)
+    messagebox.showinfo("Criterio de Laplace", f"Decision según Laplace: alternativa {decision_laplace}\nUtilidad Esperada Promedio para cada Decisión: {utilidades_laplace}")
+
+    alfa = simpledialog.askfloat("Input", "Ingrese el valor de alfa para el criterio de Hurwicz (entre 0 y 1):")
+    if 0 <= alfa <= 1:
+        decision_hurwicz, utilidades_hurwicz = criterio_hurwicz(matriz_utilidades, num_suceso, alfa)
+        messagebox.showinfo("Criterio de Hurwicz", f"Decision según Hurwicz: alternativa {decision_hurwicz}\nUtilidad Esperada para cada Decisión (alfa = {alfa}): {utilidades_hurwicz}")
+    else:
+        messagebox.showerror("Error", "El valor de alfa debe estar entre 0 y 1.")
+
+    decision_savage, maximos_lamentos = criterio_savage(matriz_utilidades, num_suceso)
+    messagebox.showinfo("Criterio de Savage", f"Decision según Savage: alternativa {decision_savage}\nLamento Máximo para cada Decisión: {maximos_lamentos}")
+
+if __name__ == "__main__":
+    main()
