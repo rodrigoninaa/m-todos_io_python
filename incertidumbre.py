@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import simpledialog, messagebox
+import numpy as np
+
 
 def obtener_utilidades():
     num_suceso = simpledialog.askinteger("Input", "Ingrese el número de sucesos:")
@@ -45,10 +47,14 @@ def criterio_hurwicz(matriz_utilidades, num_suceso, alfa):
     return decision_optima_hurwicz, utilidades_hurwicz
 
 def criterio_savage(matriz_utilidades, num_suceso):
-    maximos_lamentos = [max(fila) - min(fila) for fila in matriz_utilidades]
-    decision_optima_savage = maximos_lamentos.index(min(maximos_lamentos)) + 1
-    return decision_optima_savage, maximos_lamentos
-
+    maximos_por_columna = np.amax(matriz_utilidades, axis=0)
+    matriz_resultante = maximos_por_columna - matriz_utilidades
+    # Obtener el máximo de cada fila en la matriz resultante
+    maximos_por_fila = np.amax(matriz_resultante, axis=1)   
+    # Obtener la posición de la fila que contiene el máximo
+    decision_savage = np.argmax(maximos_por_fila)
+    return decision_savage, maximos_por_fila
+    
 def main():
     matriz_utilidades, num_suceso, num_alternativas = obtener_utilidades()
 

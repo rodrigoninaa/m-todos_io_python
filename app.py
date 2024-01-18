@@ -1,126 +1,84 @@
 import customtkinter
 from PIL import Image, ImageTk
+from tkinter import ttk
 import subprocess
+import tkinter as tk
 
-customtkinter.set_appearance_mode("System")  # Modes: system (default), light, dark
-customtkinter.set_default_color_theme("blue")  # Themes: blue (default), dark-blue, green
 
-app = customtkinter.CTk()  
-app.geometry("1280x720")
+app = customtkinter.CTk(fg_color="white")  
+app.geometry("1920x1080")
+app.title("APP v2")
 
-#frames
-frame = customtkinter.CTkFrame(master=app, width=1250, height=180)
-frame.place(x=20,y=20)
 
-#imagen logo
-# Carga la imagen desde un archivo
-imagen = Image.open("images\logo.jpg")
-tamano = (170,170)
-imagen1 = imagen.resize(tamano)
-# Convierte la imagen a un formato compatible con Tkinter
-imagen_tk = ImageTk.PhotoImage(imagen1)
-
-# Crea un widget de etiqueta y muestra la imagen en él
-label = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-label.place(x=40,y=40)
+#frames lateral y largo
+fm_largo = customtkinter.CTkFrame(app, width=1900, height=180, fg_color="#BFD1E1",corner_radius=0,border_color="#2e2e2e",border_width=1)
+fm_largo.pack()
 
 #imagen banner
-imagen = Image.open("images\logobanner.jpg")
-tamano = (980,210)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+imagen = Image.open("images\logo_banner.jpg")
+imagen_tk = ImageTk.PhotoImage(imagen)
 lb_banner = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_banner.place(x=300,y=30)
+lb_banner.place(x=0,y=0)
 
 #cpm
-cpm = customtkinter.CTkFrame(master=app, width=400, height=110)
-cpm.place(x=20,y=210)
-imagen = Image.open("images\cpm.jpg")
-tamano = (400,120)
-img_cpm = imagen.resize(tamano)
+img_cpm = Image.open("images\cpm.jpg")
 img_cpm = ImageTk.PhotoImage(img_cpm)
 lb_cpm = customtkinter.CTkLabel(app, image=img_cpm,text="")
-lb_cpm.place(x=50,y=210)
+lb_cpm.place(x=25,y=210)
 
 #pert
-pert = customtkinter.CTkFrame(master=app, width=400, height=110)
-pert.place(x=20,y=350)  
-imagen = Image.open("images\pert.jpg")
-tamano = (400,120)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+img_pert = Image.open("images\pert.jpg")
+imagen_tk = ImageTk.PhotoImage(img_pert)
 lb_pert = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_pert.place(x=50,y=350)
+lb_pert.place(x=25,y=490)
 
 #eoq 
-eoq = customtkinter.CTkFrame(master=app, width=400, height=110)
-eoq.place(x=20,y=490)
-imagen = Image.open("images\eoq.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+img_eoq = Image.open("images\eoq.jpg")
+imagen_tk = ImageTk.PhotoImage(img_eoq)
 lb_eoq = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_eoq.place(x=50,y=510)
+lb_eoq.place(x=325,y=490)
 
 #ahp- certidumbre
-ahp = customtkinter.CTkFrame(master=app, width=400, height=110)
-ahp.place(x=450,y=210)
-imagen = Image.open("images\Ahp.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+img_ahp = Image.open("images\Ahp.jpg")
+imagen_tk = ImageTk.PhotoImage(img_ahp)
 lb_ahp = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_ahp.place(x=490,y=210)
-
-#arbol grafico
-arbol = customtkinter.CTkFrame(master=app, width=400, height=110)
-arbol.place(x=450,y=350)
-imagen = Image.open("images\Arbol_grafico.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
-lb_arbol = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_arbol.place(x=490,y=350)
+lb_ahp.place(x=325,y=210)
 
 #arbol decisiones
-decisiones = customtkinter.CTkFrame(master=app, width=400, height=110)
-decisiones.place(x=450,y=490)
-imagen = Image.open("images\Arbol_decisiones.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+img_decisiones = Image.open("images\decisiones.jpg")
+imagen_tk = ImageTk.PhotoImage(img_decisiones)
 lb_decisiones = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_decisiones.place(x=490,y=510)
+lb_decisiones.place(x=625,y=490)
 
 #arbol- bajo incertidumbre
-ahp = customtkinter.CTkFrame(master=app, width=400, height=110)
-ahp.place(x=870,y=210)
-imagen = Image.open("images\Bajo_incertidumbre.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+img_incertidumbre = Image.open("images\incertidumbre.jpg")
+imagen_tk = ImageTk.PhotoImage(img_incertidumbre)
 lb_ahp = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_ahp.place(x=920,y=210)
+lb_ahp.place(x=625,y=210)
 
 #montecarlo
-arbol = customtkinter.CTkFrame(master=app, width=400, height=110)
-arbol.place(x=870,y=350)
-imagen = Image.open("images\Montecarlo.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
+img_montecarlo = Image.open("images\Montecarlo.jpg")
+imagen_tk = ImageTk.PhotoImage(img_montecarlo)
 lb_arbol = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_arbol.place(x=920,y=350)
+lb_arbol.place(x=925,y=210)
 
 #teoria de colas
-decisiones = customtkinter.CTkFrame(master=app, width=400, height=110)
-decisiones.place(x=870,y=490)
-imagen = Image.open("images\Colas.jpg")
-tamano = (400,100)
-imagen1 = imagen.resize(tamano)
-imagen_tk = ImageTk.PhotoImage(imagen1)
-lb_decisiones = customtkinter.CTkLabel(app, image=imagen_tk,text="")
-lb_decisiones.place(x=920,y=510)
+img_colas = Image.open("images\Colas.jpg")
+imagen_tk = ImageTk.PhotoImage(img_colas)
+lb_colas = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_colas.place(x=1225,y=210)
+
+#geometrica
+img_geo = Image.open("images\geometrica.jpg")
+imagen_tk = ImageTk.PhotoImage(img_geo)
+lb_geo = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_geo.place(x=925,y=490)
+
+#cuadratica
+img_cua = Image.open("images\cuadratica.jpg")
+imagen_tk = ImageTk.PhotoImage(img_cua)
+lb_cua = customtkinter.CTkLabel(app, image=imagen_tk,text="")
+lb_cua.place(x=1225,y=490)
 
 #funciones
 def funcion_cpm():
@@ -133,42 +91,67 @@ def funcion_eoq():
     archivo = "EOQ_interfaz.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
 def funcion_ahp():
-    archivo = "AHP.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    archivo = "AHP2.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
-def funcion_grafico_arbol():
-    archivo = "arbol_grafico.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
-    subprocess.call(["python", archivo])
-def funcion_decisiones():
-    archivo = "arbol_decisiones.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
-    subprocess.call(["python", archivo])
+def combobox_decisiones(choice):
+    if(choice == "Dibujar Árbol"):
+        archivo = "arbol_grafico.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+        subprocess.call(["python", archivo])
+    elif(choice == "Teoría de decisiones"):
+        archivo = "arbol_decisiones.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+        subprocess.call(["python", archivo])
 def funcion_incertidumbre():
     archivo = "incertidumbre.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
 def funcion_montecarlo():
-    archivo = "montecarlo2.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    archivo = "montecarlo.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
 def funcion_colas():
-    archivo = "teoriaColas.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    archivo = "colas.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
     subprocess.call(["python", archivo])
+def combobox_eoq(choice):
+    if(choice == "Inventarios"):
+        archivo = "EOQ_interfaz.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+        subprocess.call(["python", archivo])
+    elif(choice == "Descuento Cantidad"):
+        archivo = "EOQ_Descuento_Cantidad.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+        subprocess.call(["python", archivo])
+    elif(choice == "Ruptura"):
+        archivo = "EOQ_Ruptura.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+        subprocess.call(["python", archivo])
+def funcion_geometrica():
+    archivo = "p_geo.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])
+def funcion_cuadratica():
+    archivo = "p_cua.py"  # Reemplaza "ruta_del_archivo.py" por la ruta completa del archivo Python que deseas abrir
+    subprocess.call(["python", archivo])  
 #buttons
-btn_cpm = customtkinter.CTkButton(app, text="EJECUTAR", command=funcion_cpm)
-btn_cpm.place(x=150,y=300)
-btn_pert = customtkinter.CTkButton(app, text="EJECUTAR", command=funcion_pert)
-btn_pert.place(x=150,y=450)
-btn_eoq = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_eoq)
-btn_eoq.place(x=150,y=600)
-btn_ahp = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_ahp)
-btn_ahp.place(x=590,y=300)
-btn_arbol_grafico = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_grafico_arbol)
-btn_arbol_grafico.place(x=590,y=450)
-btn_decisiones = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_decisiones)
-btn_decisiones.place(x=590,y=600)
-btn_incertidumbre = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_incertidumbre)
-btn_incertidumbre.place(x=1020,y=300)
-btn_montecarlo = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_montecarlo)
-btn_montecarlo.place(x=1020,y=450)
-btn_colas = customtkinter.CTkButton(app, text="EJECUTAR",command=funcion_colas)
-btn_colas.place(x=1020,y=600)
-
+btn_cpm = customtkinter.CTkButton(app, text="Ejecutar", command=funcion_cpm, text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_cpm.place(x=100,y=425)
+btn_pert = customtkinter.CTkButton(app, text="Ejecutar", command=funcion_pert,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_pert.place(x=100,y=700)
+#EOQ - SELECCION TIPO
+combobox_eoqq = customtkinter.StringVar(value="EOQ Tipo 1")
+cbb_eoq = customtkinter.CTkComboBox(app, values=["Inventarios", "Descuento Cantidad","Ruptura"],
+                                     command=combobox_eoq, variable=combobox_eoqq,justify='center',text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+cbb_eoq.place(x=400,y=700)
+combobox_eoqq.set("Ejecutar")
+btn_ahp = customtkinter.CTkButton(app, text="Ejecutar",command=funcion_ahp,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_ahp.place(x=400,y=425)
+combobox_deci = customtkinter.StringVar(value="EOQ Tipo 1")
+cbb_decisiones = customtkinter.CTkComboBox(app, values=["Dibujar Árbol", "Teoría de decisiones",],
+                                     command=combobox_decisiones, variable=combobox_deci,justify='center',text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+cbb_decisiones.place(x=700,y=700)
+combobox_deci.set("Ejecutar")
+btn_incertidumbre = customtkinter.CTkButton(app, text="Ejecutar",command=funcion_incertidumbre,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_incertidumbre.place(x=700,y=425)
+btn_montecarlo = customtkinter.CTkButton(app, text="Ejecutar",command=funcion_montecarlo,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_montecarlo.place(x=1000,y=425)
+btn_colas = customtkinter.CTkButton(app, text="Ejecutar",command=funcion_colas,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_colas.place(x=1300,y=425)
+btn_geo = customtkinter.CTkButton(app, text="Ejecutar",command=funcion_geometrica,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_geo.place(x=1000,y=700)
+btn_cua = customtkinter.CTkButton(app, text="Ejecutar",command=funcion_cuadratica,text_color_disabled="#556472",fg_color='#556472',font=('Montserrat',16))
+btn_cua.place(x=1300,y=700)
 
 app.mainloop()
